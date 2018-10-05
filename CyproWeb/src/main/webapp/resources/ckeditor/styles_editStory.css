@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+body
+{
+  color: #ecf0f1;
+  background-color: black;
+  font-family: 微軟正黑體;
+  font-size: 15px;
+}
+
+.content-main h1, #content-main h1, h1 { font-size: 36px; }
+.content-main h2, #content-main h2, h2 { font-size: 30px; }
+.content-main h3, #content-main h3, h3 {
+	font-size: 24px;
+	/*將自定義的h3 css改回來*/
+	height: 24px;
+	line-height: 1.1;
+	padding-left: 0;
+	color: #333;
+	background-color: transparent;
+}
+.content-main h4, #content-main h4, h4 { font-size: 18px; }
+.content-main h5, #content-main h5, h5 { font-size: 14px; }
+.content-main h6, #content-main h6, h6 { font-size: 12px; }
+
+.content-main h1, #content-main h1, h1,
+.content-main h2, #content-main h2, h2,
+.content-main h3, #content-main h3, h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.content-main h4, #content-main h4, h4,
+.content-main h5, #content-main h5, h5,
+.content-main h6, #content-main h6, h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.content-main h1, #content-main h1, h1,
+.content-main h2, #content-main h2, h2,
+.content-main h3, #content-main h3, h3,
+.content-main h4, #content-main h4, h4,
+.content-main h5, #content-main h5, h5,
+.content-main h6, #content-main h6, h6 {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+}

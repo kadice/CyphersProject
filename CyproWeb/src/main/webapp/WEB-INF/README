@@ -1,0 +1,3 @@
+#加入新頁面
+於\config\TilesDefinitions.xml加入definition
+於對應Controller加入對應function

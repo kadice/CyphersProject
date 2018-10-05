@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+body {
+	font-family: 微軟正黑體;
+	background-color: #222;
+	/*background-image: url(/resources/pic/bg-main.jpg);*/
+	/*background-attachment: fixed;*/ /*固定背景*/
+	margin: 0px;
+}
+
+/* 標題列 */
+.header {
+	width: 100%;
+	position: fixed; /* 固定header*/
+	top: 0px;
+	z-index: 1;
+	background-color: #222;
+	border-color: #080808;
+}
+
+.headerContent {
+	width: 1000px;
+	margin: auto;
+}
+
+
+/* 主要內容區塊 */
+.content {
+	padding: 15px 35px 0px 15px;
+	width: 1000px;
+	margin: auto;
+}
+
+/* 底端列 */
+.footer {
+	width: 100%;
+}
+
+.footerContent {
+	margin: auto;
+	background-color: #222;
+	color: #AAA;
+	font-size: 12px;
+	text-align: center;
+	padding: 5px;
+	/*若想要寬度100%，關閉以下兩項CSS*/
+	width: 1000px;
+	border-radius: 5px 5px 0px 0px;
+}
+
+/* fix bootstrap ================================================================== */
+.navbar-right {
+	margin-right: 0px;
+}
+.navbar-inverse {
+	border-color: #222;
+}
+/* end fix bootstrap ================================================================== */

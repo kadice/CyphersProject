@@ -1,0 +1,43 @@
+@charset "UTF-8";
+/* bootstrap-ext-charaPageTable.css */
+
+/* 項目大標 */
+h3 {height: 35px; line-height: 34px; padding-left:10px; color:#ffcc00; background-color:#331a00;}
+/* 還原補充資料內的h3大標 */
+#others_content h3{height: 24px; line-height: 1.1; padding-left: 0; color: #333; background-color: transparent;}
+
+/*縮小bootstrap的table樣式的底部間距(主要影響粉裝列表各列間距)*/
+.table {
+  margin-bottom: 5px;
+}
+
+/* 表格樣式設定 (設定在class) */
+/* .charaTable通用 */
+.charaTable > table{border-collapse:collapse; border: 2px solid #592B03; color: #331a00; font-size: 16px;}
+.charaTable > table th{border: 1px solid white; color: white; background-color: #592B03;}
+.charaTable > table td{border: 1px solid #592B03; background-color: rgba(255,200,200,0.3);}
+/* 左右配置型表格 - th在左邊、tr在右邊的類型 */
+.left-th-right-tr th{text-align: center; vertical-align: middle;}/* 完全置中 */
+.left-th-right-tr td{text-align: left; vertical-align: middle;}/* 靠左/置中 */
+/* 上下配置型表格 - th在上面、tr在下面的類型 */
+.top-th-bottom-tr th{text-align: center; vertical-align: middle;}/* 完全置中 */
+.top-th-bottom-tr td{text-align: center; vertical-align: middle;}/* 完全置中 */
+
+/* 第二階th底色*/
+.sub-th{background-color: #9c5f33;}
+
+/* 編輯頁面用*/
+.editTable th {
+  padding: 3px 6px;
+}
+.editTable td {
+  padding: 0px;
+}
+input[type='text']{width: 100%;}
+select{width: 100%;}
+textarea{width: 100%; resize: vertical;}
+
+
+blockquote {
+    font-size: 15px;
+}

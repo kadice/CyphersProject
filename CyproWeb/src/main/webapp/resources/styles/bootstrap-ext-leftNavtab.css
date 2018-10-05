@@ -1,0 +1,56 @@
+@charset "UTF-8";
+/* bootstrap-ext-leftNavtab.css */
+/* CSS說明：在nav-tabs外加上<div class="leftTabs">，可改為左側的分頁標籤。 */
+
+
+.leftTabs > .nav-tabs {
+  float: left;
+  margin-right: 3px;
+  border-right: 1px solid #333;
+  border-bottom: 0;
+}
+.leftTabs > .nav-tabs > li {
+  float: none;
+}
+.leftTabs > .nav-tabs > li > a {
+  min-width: 50px;
+  margin-right: 0;
+  margin-bottom: 3px;
+}
+/*內容區塊的左側對齊線位置*/
+.leftTabs > .tab-content > .tab-pane {
+    padding-left: 98px;
+}
+
+/* 未選取 */
+.leftTabs > .nav-tabs > li > a {
+    padding: 10px 5px;
+	border-radius: 5px 0px 0px 5px;
+	box-shadow: 0px 1px 1px black;
+	cursor: pointer;
+	
+	text-align: center;
+	
+	color: #333;
+	background-color: rgba(90, 55, 0, 0.25);
+}
+/* 未選取 滑鼠移上*/
+.leftTabs > .nav-tabs > li > a:hover,
+.leftTabs > .nav-tabs > li > a:focus {
+	color:#ffae21;
+    background-color: rgba(128, 0, 0, 0.70);
+	border-color: transparent;
+}
+/* 已選取 */
+.leftTabs > .nav-tabs > li.active > a,
+.leftTabs > .nav-tabs > li.active > a:hover,
+.leftTabs > .nav-tabs > li.active > a:focus{
+	cursor: default;
+	color: #ffae21;
+	
+	text-align: center;
+	
+	background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	border-color: transparent;
+}
+

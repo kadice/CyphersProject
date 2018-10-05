@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- XML reading definitions for tiles -->
+<!DOCTYPE tiles-definitions PUBLIC
+    "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+    "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<!-- COMMON -->
+    <definition name="default" extends="DefaultTemplate">
+        <put-attribute name="title" value="首頁" />
+    </definition>
+    <definition name="index" extends="DefaultTemplate">
+        <put-attribute name="title" value="首頁" />
+        <put-attribute name="content" value="/WEB-INF/page/index.jsp" />
+    </definition>
+    
+    <!-- CHARACTERS -->
+    <definition name="characters" extends="DefaultTemplate">
+        <put-attribute name="title" value="能力者檔案" />
+        <put-attribute name="content" value="/WEB-INF/page/characters.jsp" />
+    </definition>
+    
+    <!-- SKILLS -->
+    <definition name="skills" extends="DefaultTemplate">
+        <put-attribute name="title" value="技能情報" />
+        <put-attribute name="content" value="/WEB-INF/page/skills.jsp" />
+    </definition>
+    
+    <!-- SKILLS -->
+    <definition name="equips" extends="DefaultTemplate">
+        <put-attribute name="title" value="戰鬥裝備" />
+        <put-attribute name="content" value="/WEB-INF/page/equips.jsp" />
+    </definition>
+    
+    <!-- STORY -->
+    <definition name="story" extends="DefaultTemplate">
+        <put-attribute name="title" value="背景故事" />
+        <put-attribute name="content" value="/WEB-INF/page/story.jsp" />
+    </definition>
+    
+    <!-- STORYCHAPTER -->
+    <definition name="story/*" extends="DefaultTemplate">
+        <put-attribute name="title" value="{1}" />
+        <put-attribute name="content" value="/WEB-INF/page/storyContents.jsp" />
+    </definition>
+    
+	<!-- 舊版特殊頁面 -->
+    <definition name="hidden" extends="DefaultTemplate">
+        <put-attribute name="title" value="隱藏版" />
+        <put-attribute name="content" value="/WEB-INF/page/hidden.jsp" />
+    </definition>
+    
+    <!-- example -->
+    <!--这里{1}/{2}是通配符的意思，{1}代表definition name="*/*"中的第一个*，{2}代表第二个*-->
+    <!-- <definition name="*/*" extends="template_base">
+        <put-attribute name="header" value="/WEB-INF/views/layouts/_top.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/layouts/_footer.jsp" />
+    </definition> -->
+</tiles-definitions>

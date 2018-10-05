@@ -1,0 +1,158 @@
+@charset "UTF-8";
+/* bootstrap-ext-equips.css */
+
+
+/* 搜尋區塊 ================================================================================ */
+
+/* 搜尋區塊寬度 */
+.equipQueryDiv{width: 900px;}
+
+/* 搜尋按鈕特殊配色 */
+.equipQueryDiv #queryBtn {
+	color: #FFF;
+	background-image: url(/resources/pic/tabBtn_silver.jpg);
+}
+
+.equipQueryDiv .navbar-inverse {
+	background-color: transparent;
+	padding-bottom: 2px;
+}
+
+.equipQueryDiv .nav > li > a {
+	padding: 6px 15px;
+	width: 100px;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+}
+
+/* 條件選擇按鈕 > 未選擇 */
+.equipQueryDiv .nav-tabs > li > a {
+	color: #d2b782;
+	background-image: url(/resources/pic/tabBtn_black.jpg);
+	border:0px;
+	/*color: #d2b782;
+	background: #53331c;
+	border: 2px solid rgb(234, 202, 128);*/
+}
+
+/* 條件選擇按鈕 > 未選擇 > 滑鼠移上 */
+.equipQueryDiv .nav-tabs > li > a:hover, 
+.equipQueryDiv .nav-tabs > li > a:focus {
+	/*
+	color: #d2b782;
+	background: #800000;
+	border: 2px solid rgb(234, 202, 128);
+	*/
+}
+
+/* 條件選擇按鈕 > 已選擇 */
+.equipQueryDiv .nav-tabs > li.active > a, 
+.equipQueryDiv .nav-tabs > li.active > a:hover, 
+.equipQueryDiv .nav-tabs > li.active > a:focus {
+	color: #ece8e0;
+	background-color: firebrick;
+	background-image: url(/resources/pic/tabBtn_brown.jpg);
+	border:0px;
+	/*color: #53331c;
+	background: #d2b782;
+	border: 2px solid rgb(234, 202, 128);*/
+}
+
+/* 條件BOX共通設定 */
+.equipQueryDiv .tab-content > .condiBox {
+	/* background-color: grey; */
+	background-image: url(/resources/pic/bg-condiBox.jpg);
+	background-repeat: round;
+	float: left;
+	position: absolute;
+	width: 900px;
+	z-index: 100;
+	color: #d2b782;
+	border-radius: 5px;
+}
+
+/* 個別條件BOX設定 */
+.equipQueryDiv .condiBox#sel_chara{width: 635px; padding: 5px; margin-top: 2px; font-size:12px; }
+.equipQueryDiv .condiBox#sel_quality{width: 515px; padding: 20px 30px; margin-top: 2px; margin-left: 102px;}
+.equipQueryDiv .condiBox#sel_position{width: 600px; padding: 20px 30px; margin-top: 2px; margin-left: 204px;}
+
+.equipQueryDiv .condiItem{display: inline-block; width: 90px;}
+.equipQueryDiv .selAllItem{display: inline-block; width: 86px;}
+
+.equipQueryDiv  input[type="radio"], input[type="checkbox"] {
+	margin: 1px;
+    vertical-align: middle;
+}
+
+
+/* 裝備表格區塊 ================================================================================ */
+
+/*設定寬度*/
+div.bootstrap-table{
+	width: 900px;
+}
+.fixed-table-container {
+    width: 900px;
+}
+
+.fixed-table-container
+/* 表格底色 */
+.table{
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* 表格標題列背景圖 */
+.bootstrap-table .table thead > tr > th{
+	background-color: transparent;
+	background-image: url(/resources/pic/bg-condiBox-ori.jpg);
+    background-repeat: space;
+    background-position-x: -55px;
+}
+
+/* 讓圖示欄無padding */
+.table > tbody > tr > td.eq-table-img{
+	padding:0px;
+}
+
+/* 調整選擇每頁顯示項目數的下拉框大小 */
+.btn{
+	padding: 3px 10px;
+}
+
+/* 分頁功能列 未選取 */
+.pagination > li > a,
+.pagination > li > span {
+	color: #f5f5f5;
+	background-color: rgba(50, 50, 50, 0.5);
+}
+/* 分頁功能列 滑鼠移上 */
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+	color: #f5f5f5;
+	background-color: #111;
+}
+/* 分頁功能列 目前分頁 */
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+	color: #f5f5f5;
+	background-color: #800000;
+	border-color: #ddd;
+}
+/* 頁面省略點點點區塊 */
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus{
+	color: #f5f5f5;
+	background-color: rgba(50, 50, 50, 0.3);
+}

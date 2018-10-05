@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="commonSqlMap">
+
+
+	<!-- ============================================================================================== COMMON -->
+	<!-- 根據paramClass取得公用參數文字 -->
+	<resultMap id="publicParamMap" type="java.util.Map">
+		<result property="key" column="KEYTERM" jdbcType="VARCHAR" />
+		<result property="value" column="VALUETERM" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getPublicParam" parameterType="String" resultMap="publicParamMap"
+		timeout="1000">
+    	<![CDATA[
+    	SELECT KEYTERM , VALUETERM
+    	FROM publicparam
+    	WHERE PARAMCLASS = #{paramClass}
+    	]]>
+	</select>
+	
+	
+	<!-- 根據charaId取得角色中文名 -->
+	<select id="getCharaName" parameterType="String"
+		resultType="String" timeout="1000">
+    	<![CDATA[
+    	SELECT charaName_ch
+    	FROM charadata 
+    	WHERE charaId = #{charaId}
+    	]]>
+	</select>
+
+	<!-- 取得角色列表(CHARAID, NAME, ICON) -->
+	<resultMap id="charaListMap" type="java.util.Map">
+		<result property="charaId" column="CHARAID" jdbcType="VARCHAR" />
+		<result property="name" column="CHARANAME_CH" jdbcType="VARCHAR" />
+		<result property="iconURL" column="ICONURL" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getAllChara" resultMap="charaListMap">
+    	<![CDATA[
+        SELECT charaId, charaName_ch, iconURL
+        FROM charadata
+        ]]>
+	</select>
+	
+	
+
+
+	<!-- ============================================================================================== CHARADATA -->
+	<resultMap id="charaDataDto" type="com.cypro.model.CharaDataDto">
+		<result property="number" column="NUMBER" jdbcType="VARCHAR" />
+		<result property="charaId" column="CHARAID" jdbcType="VARCHAR" />
+		<result property="title" column="TITLE" jdbcType="VARCHAR" />
+		<result property="title_ch" column="TITLE_CH" jdbcType="VARCHAR" />
+		<result property="title_ch_old" column="TITLE_CH_OLD" jdbcType="VARCHAR" />
+		<result property="charaName" column="CHARANAME" jdbcType="VARCHAR" />
+		<result property="charaName_ch" column="CHARANAME_CH" jdbcType="VARCHAR" />
+		<result property="positionDescribe" column="POSITIONDESCRIBE" jdbcType="VARCHAR" />
+		<result property="positionDescribe_ch" column="POSITIONDESCRIBE_CH" jdbcType="VARCHAR" />
+		<result property="fullName" column="FULLNAME" jdbcType="VARCHAR" />
+		<result property="fullName_ch" column="FULLNAME_CH" jdbcType="VARCHAR" />
+		<result property="fullName_en" column="FULLNAME_EN" jdbcType="VARCHAR" />
+		<result property="codeName" column="CODENAME" jdbcType="VARCHAR" />
+		<result property="codeName_ch" column="CODENAME_CH" jdbcType="VARCHAR" />
+		<result property="nation" column="NATION" jdbcType="VARCHAR" />
+		<result property="nation_ch" column="NATION_CH" jdbcType="VARCHAR" />
+		<result property="belongs" column="BELONGS" jdbcType="VARCHAR" />
+		<result property="belongs_ch" column="BELONGS_CH" jdbcType="VARCHAR" />
+		<result property="job" column="JOB" jdbcType="VARCHAR" />
+		<result property="job_ch" column="JOB_CH" jdbcType="VARCHAR" />
+		<result property="age" column="AGE" jdbcType="VARCHAR" />
+		<result property="birthday" column="BIRTHDAY" jdbcType="VARCHAR" />
+		<result property="height" column="HEIGHT" jdbcType="VARCHAR" />
+		<result property="weight" column="WEIGHT" jdbcType="VARCHAR" />
+		<result property="iconURL" column="ICONURL" jdbcType="VARCHAR" />
+		<result property="pictureURL" column="PICTUREURL" jdbcType="VARCHAR" />
+		<result property="themeURL" column="THEMEURL" jdbcType="VARCHAR" />
+		<result property="chReportExist" column="CHREPORTEXIST" jdbcType="VARCHAR" />
+		
+		<result property="abi_close" column="ABI_CLOSE" jdbcType="VARCHAR" />
+		<result property="abi_distance" column="ABI_DISTANCE" jdbcType="VARCHAR" />
+		<result property="abi_toPlayer" column="ABI_TOPLAYER" jdbcType="VARCHAR" />
+		<result property="abi_toTower" column="ABI_TOTOWER" jdbcType="VARCHAR" />
+		<result property="abi_difficulty" column="ABI_DIFFICULTY" jdbcType="VARCHAR" />
+		<result property="abi_others1" column="ABI_OTHERS1" jdbcType="VARCHAR" />
+		<result property="abi_others1_wording" column="ABI_OTHERS1_WORDING" jdbcType="VARCHAR" />
+		<result property="abi_others2" column="ABI_OTHERS2" jdbcType="VARCHAR" />
+		<result property="abi_others2_wording" column="ABI_OTHERS2_WORDING" jdbcType="VARCHAR" />
+		<result property="abi_others3" column="ABI_OTHERS3" jdbcType="VARCHAR" />
+		<result property="abi_others3_wording" column="ABI_OTHERS3_WORDING" jdbcType="VARCHAR" />
+		
+		<result property="ini_attack" column="INI_ATTACK" jdbcType="VARCHAR" />
+		<result property="ini_critical" column="INI_CRITICAL" jdbcType="VARCHAR" />
+		<result property="ini_vitality" column="INI_VITALITY" jdbcType="VARCHAR" />
+		<result property="ini_avoidance" column="INI_AVOIDANCE" jdbcType="VARCHAR" />
+		<result property="ini_defense" column="INI_DEFENSE" jdbcType="VARCHAR" />
+		<result property="ini_speed" column="INI_SPEED" jdbcType="VARCHAR" />
+		
+		<result property="lvUpAbi_lv2" column="LVUPABI_LV2" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv3" column="LVUPABI_LV3" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv4" column="LVUPABI_LV4" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv5" column="LVUPABI_LV5" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv6" column="LVUPABI_LV6" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv7" column="LVUPABI_LV7" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv8" column="LVUPABI_LV8" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv9" column="LVUPABI_LV9" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv10" column="LVUPABI_LV10" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv11" column="LVUPABI_LV11" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv12" column="LVUPABI_LV12" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv13" column="LVUPABI_LV13" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv14" column="LVUPABI_LV14" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv15" column="LVUPABI_LV15" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv16" column="LVUPABI_LV16" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv17" column="LVUPABI_LV17" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv18" column="LVUPABI_LV18" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv19" column="LVUPABI_LV19" jdbcType="VARCHAR" />
+		<result property="lvUpAbi_lv20" column="LVUPABI_LV20" jdbcType="VARCHAR" />
+		
+		<result property="lastModified" column="LASTMODIFIED" jdbcType="DATE" />
+	</resultMap>
+	<!-- 根據id取得能力者基本資料 -->
+	<select id="getCharaData" parameterType="String" resultMap="charaDataDto"
+		timeout="1000">
+    	<![CDATA[
+    	SELECT * 
+    	FROM charadata 
+    	WHERE CHARAID = #{charaId}
+    	]]>
+	</select>
+	<!-- update能力者基本資料 -->
+	<update id="updateCharaData">
+		<![CDATA[
+		UPDATE charadata
+		SET TITLE = #{title},
+			TITLE_CH = #{title_ch},
+			TITLE_CH_OLD = #{title_ch_old},
+			CHARANAME = #{charaName},
+			CHARANAME_CH = #{charaName_ch},
+			POSITIONDESCRIBE = #{positionDescribe},
+			POSITIONDESCRIBE_CH = #{positionDescribe_ch},
+			FULLNAME = #{fullName},
+			FULLNAME_CH = #{fullName_ch},
+			FULLNAME_EN = #{fullName_en},
+			CODENAME = #{codeName},
+			CODENAME_CH = #{codeName_ch},
+			NATION = #{nation},
+			NATION_CH = #{nation_ch},
+			BELONGS = #{belongs},
+			BELONGS_CH = #{belongs_ch},
+			JOB = #{job},
+			JOB_CH = #{job_ch},
+			AGE = #{age},
+			BIRTHDAY = #{birthday},
+			HEIGHT = #{height},
+			WEIGHT = #{weight},
+			ICONURL = #{iconURL},
+			PICTUREURL = #{pictureURL},
+			THEMEURL = #{themeURL},
+			CHREPORTEXIST = #{chReportExist},
+			ABI_CLOSE = #{abi_close},
+			ABI_DISTANCE = #{abi_distance},
+			ABI_TOPLAYER = #{abi_toPlayer},
+			ABI_TOTOWER = #{abi_toTower},
+			ABI_DIFFICULTY = #{abi_difficulty},
+			ABI_OTHERS1 = #{abi_others1},
+			ABI_OTHERS1_WORDING = #{abi_others1_wording},
+			ABI_OTHERS2 = #{abi_others2},
+			ABI_OTHERS2_WORDING = #{abi_others2_wording},
+			ABI_OTHERS3 = #{abi_others3},
+			ABI_OTHERS3_WORDING = #{abi_others3_wording},
+			INI_ATTACK = #{ini_attack},
+			INI_CRITICAL = #{ini_critical},
+			INI_VITALITY = #{ini_vitality},
+			INI_AVOIDANCE = #{ini_avoidance},
+			INI_DEFENSE = #{ini_defense},
+			INI_SPEED = #{ini_speed},
+			LVUPABI_LV2 = #{lvUpAbi_lv2},
+			LVUPABI_LV3 = #{lvUpAbi_lv3},
+			LVUPABI_LV4 = #{lvUpAbi_lv4},
+			LVUPABI_LV5 = #{lvUpAbi_lv5},
+			LVUPABI_LV6 = #{lvUpAbi_lv6},
+			LVUPABI_LV7 = #{lvUpAbi_lv7},
+			LVUPABI_LV8 = #{lvUpAbi_lv8},
+			LVUPABI_LV9 = #{lvUpAbi_lv9},
+			LVUPABI_LV10 = #{lvUpAbi_lv10},
+			LVUPABI_LV11 = #{lvUpAbi_lv11},
+			LVUPABI_LV12 = #{lvUpAbi_lv12},
+			LVUPABI_LV13 = #{lvUpAbi_lv13},
+			LVUPABI_LV14 = #{lvUpAbi_lv14},
+			LVUPABI_LV15 = #{lvUpAbi_lv15},
+			LVUPABI_LV16 = #{lvUpAbi_lv16},
+			LVUPABI_LV17 = #{lvUpAbi_lv17},
+			LVUPABI_LV18 = #{lvUpAbi_lv18},
+			LVUPABI_LV19 = #{lvUpAbi_lv19},
+			LVUPABI_LV20 = #{lvUpAbi_lv20},
+			LASTMODIFIED = #{lastModified}
+		WHERE CHARAID = #{charaId}
+		]]>
+	</update>
+	<insert id="insertCharaData">
+	    <![CDATA[
+		INSERT INTO charadata
+			(NUMBER, CHARAID, TITLE, TITLE_CH, TITLE_CH_OLD, CHARANAME, CHARANAME_CH, POSITIONDESCRIBE, POSITIONDESCRIBE_CH, 
+			FULLNAME, FULLNAME_CH, FULLNAME_EN, CODENAME, CODENAME_CH, NATION, NATION_CH, BELONGS, BELONGS_CH, JOB, JOB_CH, AGE, BIRTHDAY, HEIGHT, WEIGHT, 
+			ICONURL, PICTUREURL, THEMEURL, CHREPORTEXIST, 
+			ABI_CLOSE, ABI_DISTANCE, ABI_TOPLAYER, ABI_TOTOWER, ABI_DIFFICULTY, 
+			ABI_OTHERS1, ABI_OTHERS1_WORDING, ABI_OTHERS2, ABI_OTHERS2_WORDING, ABI_OTHERS3, ABI_OTHERS3_WORDING, 
+			INI_ATTACK, INI_CRITICAL, INI_VITALITY, INI_AVOIDANCE, INI_DEFENSE, INI_SPEED, 
+			LVUPABI_LV2, LVUPABI_LV3, LVUPABI_LV4, LVUPABI_LV5, 
+			LVUPABI_LV6, LVUPABI_LV7, LVUPABI_LV8, LVUPABI_LV9, LVUPABI_LV10, 
+			LVUPABI_LV11, LVUPABI_LV12, LVUPABI_LV13, LVUPABI_LV14, LVUPABI_LV15, 
+			LVUPABI_LV16, LVUPABI_LV17, LVUPABI_LV18, LVUPABI_LV19, LVUPABI_LV20, LASTMODIFIED)
+		SELECT
+			MAX(NUMBER)+1, #{charaId}, #{title}, #{title_ch}, #{title_ch_old}, #{charaName}, #{charaName_ch}, #{positionDescribe}, #{positionDescribe_ch},
+			#{fullName}, #{fullName_ch}, #{fullName_en}, #{codeName}, #{codeName_ch}, #{nation}, #{nation_ch}, #{belongs}, #{belongs_ch}, #{job}, #{job_ch}, #{age}, #{birthday}, #{height}, #{weight}, 
+			#{iconURL}, #{pictureURL}, #{themeURL}, #{chReportExist}, 
+			#{abi_close}, #{abi_distance}, #{abi_toPlayer}, #{abi_toTower}, #{abi_difficulty}, 
+			#{abi_others1}, #{abi_others1_wording}, #{abi_others2}, #{abi_others2_wording}, #{abi_others3}, #{abi_others3_wording}, 
+			#{ini_attack}, #{ini_critical}, #{ini_vitality}, #{ini_avoidance}, #{ini_defense}, #{ini_speed}, 
+			#{lvUpAbi_lv2}, #{lvUpAbi_lv3}, #{lvUpAbi_lv4}, #{lvUpAbi_lv5}, 
+			#{lvUpAbi_lv6}, #{lvUpAbi_lv7}, #{lvUpAbi_lv8}, #{lvUpAbi_lv9}, #{lvUpAbi_lv10}, 
+			#{lvUpAbi_lv11}, #{lvUpAbi_lv12}, #{lvUpAbi_lv13}, #{lvUpAbi_lv14}, #{lvUpAbi_lv15}, 
+			#{lvUpAbi_lv16}, #{lvUpAbi_lv17}, #{lvUpAbi_lv18}, #{lvUpAbi_lv19}, #{lvUpAbi_lv20}, #{lastModified}
+		FROM charadata
+		]]>
+	</insert>
+	
+	<!-- ============================================================================================== CHARAREPORT -->
+	<resultMap id="charaReportDto" type="com.cypro.model.CharaReportDto">
+		<result property="charaId" column="CHARAID" jdbcType="VARCHAR" />
+		<result property="language" column="LANGUAGE" jdbcType="VARCHAR" />
+		<result property="observed" column="OBSERVED" jdbcType="VARCHAR" />
+		<result property="ability" column="ABILITY" jdbcType="VARCHAR" />
+		<result property="relatedEvents" column="RELATEDEVENTS" jdbcType="VARCHAR" />
+		<result property="report_tony" column="REPORT_TONY" jdbcType="VARCHAR" />
+		<result property="report_yogi" column="REPORT_YOGI" jdbcType="VARCHAR" />
+		<result property="report_bruno" column="REPORT_BRUNO" jdbcType="VARCHAR" />
+		<result property="report_tian" column="REPORT_TIAN" jdbcType="VARCHAR" />
+		<result property="personality" column="PERSONALITY" jdbcType="VARCHAR" />
+		<result property="relationship" column="RELATIONSHIP" jdbcType="VARCHAR" />
+		<result property="remark" column="REMARK" jdbcType="VARCHAR" />
+		<result property="lastModified" column="LASTMODIFIED" jdbcType="DATE" />
+	</resultMap>
+	<!-- 根據id,language取得能力者調查報告 -->
+	<select id="getCharaReport" parameterType="Map" resultMap="charaReportDto"
+		timeout="1000">
+    	<![CDATA[
+    	SELECT * 
+    	FROM charareport
+    	WHERE CHARAID = #{charaId}
+    	AND LANGUAGE = #{language}
+    	]]>
+	</select>
+	<!-- update能力者調查報告 -->
+	<update id="updateCharaReport">
+		<![CDATA[
+		UPDATE charareport
+		SET OBSERVED = #{observed},
+			ABILITY = #{ability},
+			RELATEDEVENTS = #{relatedEvents},
+			REPORT_TONY = #{report_tony},
+			REPORT_YOGI = #{report_yogi},
+			REPORT_BRUNO = #{report_bruno},
+			REPORT_TIAN = #{report_tian},
+			PERSONALITY = #{personality},
+			RELATIONSHIP = #{relationship},
+			REMARK = #{remark},
+			LASTMODIFIED = #{lastModified}
+		WHERE CHARAID = #{charaId} AND LANGUAGE = #{language}
+		]]>
+	</update>
+	<!-- insert能力者調查報告 -->
+	<insert id="insertCharaReport">
+		<![CDATA[
+		INSERT INTO charareport
+		(CHARAID, LANGUAGE, OBSERVED, ABILITY, RELATEDEVENTS, REPORT_TONY, REPORT_YOGI, REPORT_BRUNO, REPORT_TIAN, PERSONALITY, RELATIONSHIP, REMARK, LASTMODIFIED)
+		VALUES
+		(#{charaId}, #{language}, #{observed}, #{ability}, #{relatedEvents}, #{report_tony}, #{report_yogi}, #{report_bruno}, #{report_tian}, #{personality}, #{relationship}, #{remark}, #{lastModified}) 
+		]]>
+	</insert>
+	
+	<!-- ============================================================================================== CHARAOTHERS -->
+	<resultMap id="charaOthersDto" type="com.cypro.model.CharaOthersDto">
+		<result property="charaId" column="CHARAID" jdbcType="VARCHAR" />
+		<result property="content" column="CONTENT" jdbcType="VARCHAR" />
+		<result property="lastModified" column="LASTMODIFIED" jdbcType="DATE" />
+	</resultMap>
+	<!-- 根據charaId取得能力者補充資料 -->
+	<select id="getCharaOthers" parameterType="String" resultMap="charaOthersDto" timeout="1000">
+    	<![CDATA[
+    	SELECT * 
+    	FROM charaothers
+    	WHERE CHARAID = #{charaId}
+    	]]>
+	</select>
+	<!-- update能力者補充資料 -->
+	<update id="updateCharaOthers">
+		<![CDATA[
+		UPDATE charaothers
+		SET CONTENT = #{content},
+			LASTMODIFIED = #{lastModified}
+		WHERE CHARAID = #{charaId}
+		]]>
+	</update>
+	<!-- insert能力者補充資料 -->
+	<insert id="insertCharaOthers">
+		<![CDATA[
+		INSERT INTO charaothers
+		(CHARAID, CONTENT, LASTMODIFIED)
+		VALUES
+		(#{charaId}, #{content}, #{lastModified}) 
+		]]>
+	</insert>
+	
+	<!-- ============================================================================================== SKILL -->
+	<resultMap id="SkillDto" type="com.cypro.model.SkillDto">
+		<result property="charaId" column="CHARAID" jdbcType="VARCHAR" />
+		<result property="skillSeq" column="SKILLSEQ" jdbcType="VARCHAR" />
+		<result property="hotkey" column="HOTKEY" jdbcType="VARCHAR" />
+		<result property="working" column="WORKING" jdbcType="VARCHAR" />
+		<result property="skillName" column="SKILLNAME" jdbcType="VARCHAR" />
+		<result property="skillName_ch" column="SKILLNAME_CH" jdbcType="VARCHAR" />
+		<result property="description" column="DESCRIPTION" jdbcType="VARCHAR" />
+		<result property="cooltime" column="COOLTIME" jdbcType="VARCHAR" />
+		<result property="distance" column="DISTANCE" jdbcType="VARCHAR" />
+		<result property="skilltype" column="SKILLTYPE" jdbcType="VARCHAR" />
+		<result property="down" column="DOWN" jdbcType="VARCHAR" />
+		<result property="toPlayer" column="TOPLAYER" jdbcType="VARCHAR" />
+		<result property="toTower" column="TOTOWER" jdbcType="VARCHAR" />
+		<result property="toTrooper" column="TOTROOPER" jdbcType="VARCHAR" />
+		<result property="damage1" column="DAMAGE1" jdbcType="VARCHAR" />
+		<result property="damage1_wording" column="DAMAGE1_WORDING" jdbcType="VARCHAR" />
+		<result property="damage2" column="DAMAGE2" jdbcType="VARCHAR" />
+		<result property="damage2_wording" column="DAMAGE2_WORDING" jdbcType="VARCHAR" />
+		<result property="damage3" column="DAMAGE3" jdbcType="VARCHAR" />
+		<result property="damage3_wording" column="DAMAGE3_WORDING" jdbcType="VARCHAR" />
+		<result property="damage4" column="DAMAGE4" jdbcType="VARCHAR" />
+		<result property="damage4_wording" column="DAMAGE4_WORDING" jdbcType="VARCHAR" />
+		<result property="damage5" column="DAMAGE5" jdbcType="VARCHAR" />
+		<result property="damage5_wording" column="DAMAGE5_WORDING" jdbcType="VARCHAR" />
+		<result property="damage6" column="DAMAGE6" jdbcType="VARCHAR" />
+		<result property="damage6_wording" column="DAMAGE6_WORDING" jdbcType="VARCHAR" />
+		<result property="spEffect" column="SPEFFECT" jdbcType="VARCHAR" />
+		<result property="spEffect_effect" column="SPEFFECT_EFFECT" jdbcType="VARCHAR" />
+		<result property="superArmor" column="SUPERARMOR" jdbcType="VARCHAR" />
+		<result property="superArmor_type" column="SUPERARMOR_TYPE" jdbcType="VARCHAR" />
+		<result property="superArmor_direct" column="SUPERARMOR_DIRECT" jdbcType="VARCHAR" />
+		<result property="superArmor_timing" column="SUPERARMOR_TIMING" jdbcType="VARCHAR" />
+		<result property="invincible" column="INVINCIBLE" jdbcType="VARCHAR" />
+		<result property="invincible_type" column="INVINCIBLE_TYPE" jdbcType="VARCHAR" />
+		<result property="invincible_direct" column="INVINCIBLE_DIRECT" jdbcType="VARCHAR" />
+		<result property="invincible_timing" column="INVINCIBLE_TIMING" jdbcType="VARCHAR" />
+		<result property="catchJudge" column="CATCHJUDGE" jdbcType="VARCHAR" />
+		<result property="catchJudge_lv" column="CATCHJUDGE_LV" jdbcType="VARCHAR" />
+		<result property="catchJudge_timing" column="CATCHJUDGE_TIMING" jdbcType="VARCHAR" />
+		<result property="catchAvoid" column="CATCHAVOID" jdbcType="VARCHAR" />
+		<result property="catchAvoid_lv" column="CATCHAVOID_LV" jdbcType="VARCHAR" />
+		<result property="catchAvoid_timing" column="CATCHAVOID_TIMING" jdbcType="VARCHAR" />
+		<result property="videoURL" column="VIDEOURL" jdbcType="VARCHAR" />
+		<result property="others" column="OTHERS" jdbcType="VARCHAR" />
+		<result property="lastModified" column="LASTMODIFIED" jdbcType="DATE" />
+		<result property="hotkeyDesc" column="VALUETERM" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 根據charaId取得技能列表 -->
+	<select id="getSkillList" parameterType="String" resultMap="SkillDto"
+		timeout="1000">
+    	<![CDATA[
+    	SELECT * 
+    	FROM skill, publicparam
+    	WHERE CHARAID = #{charaId}
+    	AND publicparam.PARAMCLASS = 'HotkeyDesc'
+    	AND skill.HOTKEY = publicparam.KEYTERM
+    	]]>
+	</select>
+	<!-- 根據charaId取得working=1的技能列表 -->
+	<select id="getWorkingSkillList" parameterType="String" resultMap="SkillDto"
+		timeout="1000">
+		<![CDATA[
+    	SELECT * 
+    	FROM skill, publicparam
+    	WHERE CHARAID = #{charaId}
+    	AND publicparam.PARAMCLASS = 'HotkeyDesc'
+    	AND skill.HOTKEY = publicparam.KEYTERM
+    	AND skill.WORKING = '1'
+    	]]>
+	</select>
+	<!-- 根據charaId和skillSeq取得單一技能資料 -->
+	<select id="getSkillByIdAndSeq" parameterType="Map" resultMap="SkillDto"
+		timeout="1000">
+    	<![CDATA[
+    	SELECT * 
+    	FROM skill, publicparam
+    	WHERE CHARAID = #{charaId} AND SKILLSEQ = #{skillSeq}
+    	AND publicparam.PARAMCLASS = 'HotkeyDesc'
+    	AND skill.HOTKEY = publicparam.KEYTERM
+    	]]>
+	</select>
+	<!-- update技能資料 -->
+	<update id="updateSkill">
+		<![CDATA[
+		UPDATE skill
+		SET HOTKEY = #{hotkey},
+			WORKING = #{working},
+			SKILLNAME = #{skillName},
+			SKILLNAME_CH = #{skillName_ch},
+			DESCRIPTION = #{description},
+			COOLTIME = #{cooltime},
+			DISTANCE = #{distance},
+			SKILLTYPE = #{skilltype},
+			DOWN = #{down},
+			TOPLAYER = #{toPlayer},
+			TOTOWER = #{toTower},
+			TOTROOPER = #{toTrooper},
+			DAMAGE1 = #{damage1},
+			DAMAGE1_WORDING = #{damage1_wording},
+			DAMAGE2 = #{damage2},
+			DAMAGE2_WORDING = #{damage2_wording},
+			DAMAGE3 = #{damage3},
+			DAMAGE3_WORDING = #{damage3_wording},
+			DAMAGE4 = #{damage4},
+			DAMAGE4_WORDING = #{damage4_wording},
+			DAMAGE5 = #{damage5},
+			DAMAGE5_WORDING = #{damage5_wording},
+			DAMAGE6 = #{damage6},
+			DAMAGE6_WORDING = #{damage6_wording},
+			SPEFFECT = #{spEffect},
+			SPEFFECT_EFFECT = #{spEffect_effect},
+			SUPERARMOR = #{superArmor},
+			SUPERARMOR_TYPE = #{superArmor_type},
+			SUPERARMOR_DIRECT = #{superArmor_direct},
+			SUPERARMOR_TIMING = #{superArmor_timing},
+			INVINCIBLE = #{invincible},
+			INVINCIBLE_TYPE = #{invincible_type},
+			INVINCIBLE_DIRECT = #{invincible_direct},
+			INVINCIBLE_TIMING = #{invincible_timing},
+			CATCHJUDGE = #{catchJudge},
+			CATCHJUDGE_LV = #{catchJudge_lv},
+			CATCHJUDGE_TIMING = #{catchJudge_timing},
+			CATCHAVOID = #{catchAvoid},
+			CATCHAVOID_LV = #{catchAvoid_lv},
+			CATCHAVOID_TIMING = #{catchAvoid_timing},
+			VIDEOURL = #{videoURL},
+			OTHERS = #{others},
+			LASTMODIFIED = #{lastModified}
+		WHERE CHARAID = #{charaId} AND SKILLSEQ = #{skillSeq}
+		]]>
+	</update>
+	<!-- insert技能資料 -->
+	<insert id="insertSkill">
+		<![CDATA[
+		INSERT INTO skill
+		(CHARAID, SKILLSEQ, HOTKEY, WORKING, SKILLNAME, SKILLNAME_CH, DESCRIPTION, COOLTIME, DISTANCE, SKILLTYPE, DOWN, 
+			TOPLAYER, TOTOWER, TOTROOPER, DAMAGE1, DAMAGE1_WORDING, DAMAGE2, DAMAGE2_WORDING, DAMAGE3, DAMAGE3_WORDING, 
+			DAMAGE4, DAMAGE4_WORDING, DAMAGE5, DAMAGE5_WORDING, DAMAGE6, DAMAGE6_WORDING, SPEFFECT, SPEFFECT_EFFECT, 
+			SUPERARMOR, SUPERARMOR_TYPE, SUPERARMOR_DIRECT, SUPERARMOR_TIMING, 
+			INVINCIBLE, INVINCIBLE_TYPE, INVINCIBLE_DIRECT, INVINCIBLE_TIMING, 
+			CATCHJUDGE, CATCHJUDGE_LV, CATCHJUDGE_TIMING, CATCHAVOID, CATCHAVOID_LV, CATCHAVOID_TIMING, 
+			VIDEOURL, OTHERS, LASTMODIFIED)
+		VALUES
+		(#{charaId}, #{skillSeq}, #{hotkey}, #{working}, #{skillName}, #{skillName_ch}, #{description}, #{cooltime}, #{distance}, #{skilltype}, #{down}, 
+			#{toPlayer}, #{toTower}, #{toTrooper}, #{damage1}, #{damage1_wording}, #{damage2}, #{damage2_wording}, #{damage3}, #{damage3_wording}, 
+			#{damage4}, #{damage4_wording}, #{damage5}, #{damage5_wording}, #{damage6}, #{damage6_wording}, #{spEffect}, #{spEffect_effect}, 
+			#{superArmor}, #{superArmor_type}, #{superArmor_direct}, #{superArmor_timing}, #{invincible}, #{invincible_type}, #{invincible_direct}, #{invincible_timing}, 
+			#{catchJudge}, #{catchJudge_lv}, #{catchJudge_timing}, #{catchAvoid}, #{catchAvoid_lv}, #{catchAvoid_timing}, 
+			#{videoURL}, #{others}, #{lastModified})
+		]]>
+	</insert>
+	<!-- 取得擴充技能表狀態描述 -->
+	<select id="getExtSkillDesc" parameterType="String" resultType="String">
+		<![CDATA[
+    	SELECT EXTSKILLDESC
+    	FROM charadata
+    	WHERE CHARAID = #{charaId}
+    	]]>
+	</select>
+	<!-- update擴充技能表狀態描述 -->
+	<update id="updateExtSkillDesc">
+		<![CDATA[
+		UPDATE charadata
+		SET EXTSKILLDESC = #{extSkillDesc}
+		WHERE CHARAID = #{charaId}
+		]]>
+	</update>
+	<!-- ============================================================================================== EQUIP -->
+	<resultMap id="EquipDto" type="com.cypro.model.EquipDto">
+		<result property="equipId" column="EQUIPID" jdbcType="VARCHAR" />
+		<result property="equipName" column="EQUIPNAME" jdbcType="VARCHAR" />
+		<result property="equipName_ch" column="EQUIPNAME_CH" jdbcType="VARCHAR" />
+		<result property="charaId" column="CHARAID" jdbcType="VARCHAR" />
+		<result property="charaName" column="CHARANAME" jdbcType="VARCHAR" />
+		<result property="quality" column="QUALITY" jdbcType="VARCHAR" />
+		<result property="qualityStr" column="VALUETERM" jdbcType="VARCHAR" />
+		<result property="segment" column="SEGMENT" jdbcType="VARCHAR" />
+		<result property="position" column="POSITION" jdbcType="VARCHAR" />
+		<result property="cost" column="COST" jdbcType="VARCHAR" />
+		<result property="season" column="SEASON" jdbcType="VARCHAR" />
+		<result property="effect" column="EFFECT" jdbcType="VARCHAR" />
+		<result property="information" column="INFORMATION" jdbcType="VARCHAR" />
+		<result property="information_ch" column="INFORMATION_CH" jdbcType="VARCHAR" />
+		<result property="iconURL" column="ICONURL" jdbcType="VARCHAR" />
+		<result property="picURL" column="PICURL" jdbcType="VARCHAR" />
+		<result property="fullPicURL" column="FULLPICURL" jdbcType="VARCHAR" />
+		<result property="lastModified" column="LASTMODIFIED" jdbcType="DATE" />
+	</resultMap>
+	<!-- 取得角色粉裝 -->
+	<select id="getUniqueEquips" parameterType="String" resultMap="EquipDto">
+		<![CDATA[
+    	SELECT * 
+		FROM equip
+			INNER JOIN (
+				SELECT KEYTERM as POSKEY, VALUETERM
+				FROM publicparam WHERE PARAMCLASS = 'ItemPosition') pos
+			ON equip.POSITION = pos.VALUETERM
+		WHERE CHARAID = #{charaId} AND QUALITY = '4'
+		ORDER BY POSKEY
+    	]]>
+	</select>
+	<!-- 根據條件取得裝備列表  -->
+	<select id="getEquip" parameterType="Map" resultMap="EquipDto" timeout="1000">
+    	<![CDATA[
+		SELECT *
+		FROM equip 
+			INNER JOIN (
+				SELECT KEYTERM as QUAKEY, VALUETERM
+				FROM publicparam WHERE PARAMCLASS = 'QualityStrCh') qua
+			ON equip.QUALITY = qua.QUAKEY
+			INNER JOIN (
+				SELECT KEYTERM as POSKEY, VALUETERM
+				FROM publicparam WHERE PARAMCLASS = 'ItemPosition') pos
+			ON equip.POSITION = pos.VALUETERM
+		]]>
+		<if test="charaId != 'Public'">
+			<![CDATA[ INNER JOIN (
+				SELECT CHARAID as CHAID , CHARANAME_CH as CHARANAME
+				FROM charadata) cha
+			ON equip.CHARAID = cha.CHAID  ]]>
+		</if>
+		<if test="charaId == 'Public'">
+			<![CDATA[ INNER JOIN (
+				SELECT KEYTERM as CHAID, VALUETERM as CHARANAME
+				FROM publicparam WHERE PARAMCLASS = 'PublicWording') pub
+			ON equip.CHARAID = pub.CHAID ]]>
+		</if>
+		<![CDATA[
+		WHERE CHARAID = #{charaId}
+		]]>
+		<if test="qualityList != null">
+			<![CDATA[ AND QUALITY IN ]]>
+			<foreach collection="qualityList" item="quality" index="index" open="(" separator="," close=")">
+				#{quality}
+    		</foreach>
+		</if>
+		<if test="positionList != null">
+			<![CDATA[ AND POSITION IN ]]>
+			<foreach collection="positionList" item="position" index="index" open="(" separator="," close=")">
+				#{position}
+    		</foreach>
+		</if>
+		ORDER BY POSKEY, QUALITY DESC;
+	</select>
+	<!-- 根據charaId取得裝備編號列表 -->
+	<select id="getEquipId" parameterType="String" resultType="String" timeout="1000">
+    	<![CDATA[
+    	SELECT EQUIPID 
+    	FROM equip
+    	WHERE CHARAID = #{charaId}
+        ORDER BY EQUIPID;
+        ]]>
+	</select>
+	<!-- 根據關鍵字取得裝備列表 -->
+	<select id="getEquipByKey" parameterType="String" resultMap="EquipDto"
+	timeout="1000">
+    	<![CDATA[
+    	SELECT * 
+    	FROM equip_ori, publicparam
+    	WHERE equip_ori.equipName = #{equipKey}
+    	AND publicparam.PARAMCLASS = 'QualityStrCh'
+    	AND equip_ori.QUALITY = publicparam.KEYTERM
+        ORDER BY EQUIPID;
+        ]]>
+	</select>
+	<!-- 根據equipID取得單一裝備資料 -->
+	<select id="getEquipById" parameterType="String" resultMap="EquipDto">
+		<![CDATA[
+		SELECT * 
+    	FROM equip, publicparam
+    	WHERE equip.EQUIPID = #{equipId}
+    	AND publicparam.PARAMCLASS = 'QualityStrCh'
+    	AND equip.QUALITY = publicparam.KEYTERM
+    	]]>
+	</select>
+	<!-- update裝備資料 -->
+	<update id="updateEquip">
+		<![CDATA[
+		UPDATE equip
+		SET EQUIPNAME = #{equipName},
+			EQUIPNAME_CH = #{equipName_ch},
+			CHARAID = #{charaId},
+			QUALITY = #{quality},
+			SEGMENT = #{segment},
+			POSITION = #{position},
+			COST = #{cost},
+			SEASON = #{season},
+			EFFECT = #{effect},
+			INFORMATION = #{information},
+			INFORMATION_CH = #{information_ch},
+			ICONURL = #{iconURL},
+			PICURL = #{picURL},
+			FULLPICURL = #{fullPicURL},
+			LASTMODIFIED = #{lastModified}
+		WHERE EQUIPID = #{equipId}
+		]]>
+	</update>
+	<!-- update裝備資料中的effect -->
+	<update id="updateEquipEffect">
+		<![CDATA[
+		UPDATE equip
+		SET EFFECT = #{effect},
+			LASTMODIFIED = #{lastModified}
+		WHERE EQUIPID = #{equipId}
+		]]>
+	</update>
+	<!-- update裝備資料中的information和information_ch -->
+	<update id="updateEquipInfo">
+		<![CDATA[
+		UPDATE equip
+		SET INFORMATION = #{information},
+			INFORMATION_CH = #{information_ch},
+			LASTMODIFIED = #{lastModified}
+		WHERE EQUIPID = #{equipId}
+		]]>
+	</update>
+	<!-- insert裝備資料 -->
+	<insert id="insertEquip">
+		<![CDATA[
+		INSERT INTO equip
+		(EQUIPID, EQUIPNAME, EQUIPNAME_CH, CHARAID, QUALITY, SEGMENT, POSITION, COST, SEASON, EFFECT, INFORMATION, INFORMATION_CH, ICONURL, PICURL, FULLPICURL, LASTMODIFIED )
+		VALUES
+		(#{equipId}, #{equipName}, #{equipName_ch}, #{charaId}, #{quality}, #{segment}, #{position}, #{cost}, #{season}, #{effect}, #{information}, #{information_ch}, #{iconURL}, #{picURL}, #{fullPicURL}, #{lastModified}) 
+		]]>
+	</insert>
+	<!-- 依charaId取得角色裝備故事情報(包含重複) -->
+	<select id="getEquipInformation" parameterType="String" resultMap="EquipDto">
+		<![CDATA[
+			SELECT *
+			FROM equip, publicparam
+			WHERE charaId = #{charaId} 
+			AND information <> '' 
+			AND publicparam.PARAMCLASS = 'QualityStrCh'
+    		AND equip.QUALITY = publicparam.KEYTERM
+			ORDER BY information;
+		]]>
+	</select>
+    	
+	<!-- ============================================================================================== VOICE -->
+	<resultMap id="VoiceDto" type="com.cypro.model.VoiceDto">
+		<result property="voiceId" column="VOICEID" jdbcType="VARCHAR" />
+		<result property="charaId" column="CHARAID" jdbcType="VARCHAR" />
+		<result property="seq" column="SEQ" jdbcType="VARCHAR" />
+		<result property="chara_sub" column="CHARA_SUB" jdbcType="VARCHAR" />
+		<result property="summary" column="SUMMARY" jdbcType="VARCHAR" />
+		<result property="actions" column="ACTIONS" jdbcType="VARCHAR" />
+		<result property="actions_ch" column="ACTIONS_CH" jdbcType="VARCHAR" />
+		<result property="v_lines" column="V_LINES" jdbcType="VARCHAR" />
+		<result property="v_lines_ch" column="V_LINES_CH" jdbcType="VARCHAR" />
+		<result property="voiceURL" column="VOICEURL" jdbcType="VARCHAR" />
+		<result property="lastModified" column="LASTMODIFIED" jdbcType="DATE" />
+	</resultMap>
+	<!-- 根據charaId取得語音列表 -->
+	<select id="getVoiceByCharaId" parameterType="String" resultMap="VoiceDto">
+		<![CDATA[
+			SELECT * FROM voice 
+			WHERE CHARAID = #{charaId}
+			ORDER BY SEQ
+		]]>
+	</select>
+	<!-- 根據voiceId取得單一語音資料 -->
+	<select id="getVoiceByVoiceId" parameterType="String" resultMap="VoiceDto">
+		<![CDATA[
+			SELECT * FROM voice 
+			WHERE VOICEID = #{voiceId}
+		]]>
+	</select>
+	<!-- 更新語音資料 -->
+	<update id="updateVoice">
+		<![CDATA[
+		UPDATE voice
+		SET CHARAID = #{charaId},
+			SEQ = #{seq},
+			CHARA_SUB = #{chara_sub},
+			SUMMARY = #{summary},
+			ACTIONS = #{actions},
+			ACTIONS_CH = #{actions_ch},
+			V_LINES = #{v_lines},
+			V_LINES_CH = #{v_lines_ch},
+			VOICEURL = #{voiceURL},
+			LASTMODIFIED = #{lastModified}
+		WHERE VOICEID = #{voiceId}
+		]]>
+	</update>
+	<!-- 新增語音資料 -->
+	<insert id="insertVoice">
+		<![CDATA[
+		INSERT INTO voice
+		(VOICEID, CHARAID, SEQ, CHARA_SUB, SUMMARY, ACTIONS, ACTIONS_CH, V_LINES, V_LINES_CH, VOICEURL, LASTMODIFIED)
+		VALUES
+		(#{voiceId}, #{charaId}, #{seq}, #{chara_sub}, #{summary}, #{actions}, #{actions_ch}, #{v_lines}, #{v_lines_ch}, #{voiceURL}, #{lastModified}) 
+		]]>
+	</insert>
+	<!-- 取得配音員 -->
+	<select id="getVoiceActor" parameterType="String" resultType="String">
+		<![CDATA[
+    	SELECT VOICEACTOR
+    	FROM charadata
+    	WHERE CHARAID = #{charaId}
+    	]]>
+	</select>
+	<!-- update配音員 -->
+	<update id="updateVoiceActor">
+		<![CDATA[
+		UPDATE charadata
+		SET VOICEACTOR = #{voiceActor}
+		WHERE CHARAID = #{charaId}
+		]]>
+	</update>
+	<!-- 根據配音員取得角色中文名列表 -->
+	<select id="getCharaListByVoiceActor" parameterType="String" resultType="String">
+		<![CDATA[
+    	SELECT CHARANAME_CH
+    	FROM charadata
+    	WHERE VOICEACTOR = #{voiceActor}
+    	]]>
+	</select>
+	<!-- 取得聲優資料 -->
+	<select id="getVa_info" parameterType="String" resultType="String">
+		<![CDATA[
+    	SELECT va_info
+    	FROM voiceactor
+    	WHERE VA_NAME = #{voiceActor}
+    	]]>
+	</select>
+	
+	<!-- ============================================================================================== STORY -->
+	<resultMap id="StoryDto" type="com.cypro.model.StoryDto">
+		<result property="chapter" column="CHAPTER" jdbcType="VARCHAR" />
+		<result property="section" column="SECTION" jdbcType="VARCHAR" />
+		<result property="title" column="TITLE" jdbcType="VARCHAR" />
+		<result property="storyContent_kr" column="STORYCONTENT_KR" jdbcType="VARCHAR" />
+		<result property="storyContent_ch" column="STORYCONTENT_CH" jdbcType="VARCHAR" />
+		<result property="lastModified" column="LASTMODIFIED" jdbcType="DATE" />
+	</resultMap>
+	<!-- 取得章節 -->
+	<select id="getChapters" resultType="String">
+		<![CDATA[
+			SELECT DISTINCT chapter FROM story;
+		]]>
+	</select>
+	<!-- 取得背景故事 -->
+	<select id="getStory" parameterType="Map" resultMap="StoryDto">
+    	<![CDATA[
+        SELECT *
+        FROM story
+        WHERE CHAPTER = #{chapter} 
+        	AND SECTION = #{section};
+        ]]>
+	</select>
+	<!-- 根據chapter取得背景故事列表 -->
+	<select id="getStoryListByChapter" parameterType="String" resultMap="StoryDto"
+		timeout="1000">
+		<![CDATA[
+    	SELECT * 
+    	FROM story
+    	WHERE CHAPTER = #{chapter}
+    	ORDER BY SECTION
+    	]]>
+	</select>
+	
+	<!-- 更新背景故事 -->
+	<update id="updateStory">
+		<![CDATA[
+		UPDATE story
+		SET CHAPTER = #{chapter},
+			SECTION = #{section},
+			STORYCONTENT_KR = #{storyContent_kr},
+			STORYCONTENT_CH = #{storyContent_ch},
+			LASTMODIFIED = #{lastModified}
+		WHERE CHAPTER = #{chapter} AND SECTION = ${section}
+		]]>
+	</update>
+	<!-- 新增背景故事 -->
+	<insert id="insertStory">
+		<![CDATA[
+		INSERT INTO story
+		(CHAPTER, SECTION, STORYCONTENT_KR, STORYCONTENT_CH, LASTMODIFIED)
+		VALUES
+		(#{chapter}, #{section}, #{storyContent_kr}, #{storyContent_ch}, #{lastModified}) 
+		]]>
+	</insert>
+	
+	
+	<!-- ============================================================================================== isExist -->
+	<!-- 查詢該EquipId是否存在 -->
+	<select id="isEquipIdExist" parameterType="String" resultType="String"
+		timeout="1000">
+    	<![CDATA[
+    	SELECT EQUIPID
+    	FROM equip
+    	WHERE EQUIPID = #{equipId}
+    	]]>
+	</select>
+	
+	
+	<!-- 查詢該CharaId是否存在 -->
+	<select id="isCharaIdExist" parameterType="String" resultType="String" timeout="1000">
+    	<![CDATA[
+    	SELECT CHARAID
+    	FROM charadata
+    	WHERE CHARAID = #{charaId}
+    	]]>
+	</select>
+	
+	<!-- 查詢該Story是否存在 -->
+	<select id="isStoryExist" parameterType="Map" resultType="String" timeout="1000">
+    	<![CDATA[
+    	SELECT idstory
+    	FROM story
+        WHERE CHAPTER = #{chapter} 
+        	AND SECTION = #{section};
+    	]]>
+	</select>
+	
+	<!-- 查詢該CharaReport是否存在 -->
+	<select id="isCharaReportExist" parameterType="Map" resultType="String" timeout="1000">
+    	<![CDATA[
+    	SELECT charaId
+    	FROM charareport
+        WHERE CHARAID = #{charaId} 
+        	AND LANGUAGE = #{language};
+    	]]>
+	</select>
+	
+	<!-- ============================================================================================== LOG -->
+	<!-- for log -->
+	<resultMap id="logMap" type="java.util.Map">
+		<result property="date" column="DATE" jdbcType="DATE" />
+		<result property="ip" column="IP" jdbcType="VARCHAR" />
+		<result property="logMsg" column="LOGMSG" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="insertLog">
+		<![CDATA[
+		INSERT INTO log
+		(DATE, IP, LOGMSG)
+		VALUES
+		(#{date}, #{ip}, #{logMsg})
+		]]>
+	</insert>
+	<select id="getLogs" parameterType="int" resultMap="logMap"
+		timeout="1000">
+    	<![CDATA[
+    	SELECT *
+    	FROM log
+    	ORDER BY idLog DESC LIMIT #{i}
+    	]]>
+	</select>
+	
+	
+	
+	
+	<!-- 查詢該id是否存在中文故事檔案 -->
+	<!-- <select id="isChReportExist" parameterType="String" resultType="String"
+		timeout="1000">
+    	<![CDATA[
+    	SELECT CHREPORTEXIST
+    	FROM charadata
+    	WHERE CHARAID = #{charaId}
+    	]]>
+	</select> -->
+	
+	
+</mapper>
