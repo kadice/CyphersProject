@@ -1,0 +1,106 @@
+﻿@model IEnumerable<NetCoreMvcApp.Models.StoryModel>
+@{
+    ViewData["Title"] = "背景故事";
+}
+<style type="text/css">
+    body {
+        background-image: url('/image/bg_story.jpg');
+        background-attachment: fixed; /*固定背景*/
+        background-size: cover;
+    }
+
+    .content {
+        background-color: rgba(1, 1, 1, 0.5);
+        padding: 0px 10px 20px 10px;
+        color: white;
+    }
+
+    .sectionDiv {
+        width: 830px;
+        color: #ecf0f1;
+        text-align: justify;
+        padding: 30px 30px;
+    }
+
+    #contentsDiv {
+        width: 280px;
+        position: fixed;
+        right: 30px;
+        max-width: 280px;
+        color: #ecf0f1;
+    }
+
+        #contentsDiv > ul {
+            margin-bottom: 0px;
+        }
+
+        #contentsDiv a {
+            color: #ecf0f1;
+        }
+</style>
+<div class="content">
+    <!--目錄區塊-->
+    <div id="contentsDiv">
+        <br>
+        <ul><li style="list-style-type: square;"><a href="/Story">回上層</a></li></ul>
+        <br>
+        @foreach (var item in Model.ToList())
+        {
+            <ul>
+                <li style="list-style-type: square;"><a href="#sec_@item.section">@item.title</a></li>
+            </ul>
+        }
+    </div>
+    <!--主要區塊-->
+    <div id="mainDiv">
+        @foreach (var item in Model.ToList())
+        {
+        <div class="sectionDiv" id="sec_@item.section">
+            <div class="languageTabs">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="active" id="tab_ch_@item.section" data-toggle="tab" href="#sec_ch_@item.section">中文</a></li>
+                    <li class="nav-item"><a id="tab_kr_@item.section" data-toggle="tab" href="#sec_kr_@item.section">韓文</a></li>
+                </ul>
+            </div>
+            @*<div style="text-align:right"><a asp-controller="Story" asp-action="Edit" asp-route-chapter="@item.chapter" asp-route-section="@item.section.ToString()">編輯</a></div>*@
+            <div style="text-align:right"><form action="/Story/Edit/@item.chapter/@item.section" method="post"><button type="submit"class="btn btn-link">編輯</button></form></div>
+            <div class="tab-content">
+                <div id="sec_ch_@item.section" class="tab-pane fade active show">
+                    @Html.Raw(item.storyContent_ch)
+                </div>
+                <div id="sec_kr_@item.section" class="tab-pane fade">
+                    @Html.Raw(item.storyContent_kr)
+                </div>
+            </div>
+        </div>
+            <hr>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        initTabPage();
+        setContentsDivPosition();
+    });
+
+    $(window).resize(function () {
+        setContentsDivPosition();
+    });
+
+    /*如果沒有中文翻譯，則顯示韓文原文*/
+    function initTabPage() {
+        $(".sectionDiv").each(function () {
+            var num = this.id.split("_")[1];
+            if (document.getElementById("sec_ch_" + num).innerHTML.trim() == "") {
+                $("#tab_kr_" + num).tab('show');
+            }
+        });
+    }
+    /*設定目錄區塊位置*/
+    function setContentsDivPosition() {
+        var right = (($(window).width() - $("#mainDiv").width()) / 2) + 10;
+        $('#contentsDiv').css({
+            'right': right + 'px',
+        });
+    }
+</script>

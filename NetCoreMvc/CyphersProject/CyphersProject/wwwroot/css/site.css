@@ -1,0 +1,89 @@
+﻿html, body, navbar, .container {
+    min-width: 1140px;
+}
+/*自動展開標題列下拉選單*/
+.dropdown:hover .dropdown-menu, .btn-group:hover .dropdown-menu {
+    display: block;
+}
+/*置底footer*/
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+
+body {
+    font-family: 微軟正黑體;
+    /*background-color: #222;*/
+    margin: 0px;
+    margin-bottom: 48px; /* Margin bottom by footer height */
+}
+.footer {
+    color: #adb5bd;
+    background-color: #343a40;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+}
+/* 置底footer styles */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 992px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+
+/*languageTabs*/
+.languageTabs > .nav-tabs {
+    border-bottom: 1px solid #FFFFFF;
+}
+/* 未選取 */
+.languageTabs a {
+    padding: 3px 10px 1px 10px;
+    border-radius: 25px 0px 0px 0px;
+    padding-left: 15px;
+    box-shadow: 0px 1px 1px black;
+    font-size: 15px;
+    font-style: italic;
+    cursor: pointer;
+    border-color: transparent;
+    color: #ffae21;
+    background-color: #4d1a08;
+}
+    /* 已選取 */
+    .languageTabs a.active {
+        cursor: default;
+        color: #4d1a08;
+        background-color: #ffae21;
+        text-decoration-line:none;
+    }
+
+
+
+
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,229 @@
+﻿@model NetCoreMvcApp.Models.StoryModel
+@{
+    ViewData["Title"] = "編輯背景故事";
+}
+
+<style type="text/css">
+    body {
+        background-image: url('/image/bg_story.jpg');
+        background-attachment: fixed; /*固定背景*/
+        background-size: cover;
+    }
+
+    .content {
+        background-color: rgba(1, 1, 1, 0.5);
+        padding: 0px 10px 20px 10px;
+        color: white;
+    }
+
+    #chapterSelector {
+        background-color: white;
+        color: black;
+        width: 90%;
+        border-radius: 0px 0px 10px 10px;
+        padding: 10px;
+    }
+
+    table.dataTable tbody th, table.dataTable tbody td {
+        padding: 2px 0px;
+    }
+
+    button.btn-secondary a {
+        color: white;
+        text-decoration: none;
+    }
+</style>
+<div class="content">
+    <!--查詢區塊-->
+    <div id="chapterSelector" class="mx-auto">
+        <div id="toggleDiv" data-toggle="collapse" href="#listTableDiv" style="text-align: center; cursor:pointer;"><i class="fas fa-caret-down"></i>&nbsp;展開/收合章節列表&nbsp;<i class="fas fa-caret-down"></i></div>
+        <div id="listTableDiv" class="collapse">
+            <table id="listTable" class="" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th width="130px"></th>
+                        <th width="150px">章節</th>
+                        <th width="130px">段落</th>
+                        <th>標題</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewData["StoryList"] as IEnumerable<StoryModel>)
+                    {
+                        <tr>
+                            <td>
+                                @*<button class="btn btn-sm btn-secondary">@Html.ActionLink("編輯此章節", "Edit", new { chapter = item.chapter, section = item.section })</button>*@
+                                <div style="text-align:center"><form action="/Story/Edit/@item.chapter/@item.section" method="post"><button type="submit" class="btn btn-sm btn-secondary">編輯此章節</button></form></div>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.chapter)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.section)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.title)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <div>
+        <div style="display:inline-block">
+            <a class="btn btn-sm btn-secondary" asp-controller="Story" asp-action="Index">回到背景故事</a>
+        </div>
+        <div style="display:inline-block">
+            <form action="/Story/NewStory" method="post"><button type="submit" class="btn btn-sm btn-secondary">新增故事篇章</button></form>
+        </div>
+    </div>
+    <hr style="border-top: 1px solid white;">
+    <!--編輯區塊-->
+    <div>
+        <h2>編輯背景故事</h2>
+        <div class="@Html.ViewData["alertType"]" role="alert">
+            @Html.ViewData["MSG"]
+        </div>
+        <div>
+            <form asp-controller="Story" asp-action="SaveStory" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div width="100%">
+                    <div style="display:inline-block">
+                        <input type="hidden" name="editMode" value="@ViewData["EditMode"]" />
+                        <input type="submit" id="BtnSave" value="儲存變更" class="btn btn-sm btn-primary" />
+                    </div>
+                    @if (ViewData["EditMode"].ToString() == "update")
+                    {
+                        <div style="display:inline-block">
+                            <input type="submit" id="BtnDelete" value="刪除此章節" class="btn btn-sm btn-danger" />
+                            <script type="text/javascript">
+                                $("#BtnDelete").click(function () {
+                                    isChange = false;
+                                    $(this).closest("form").attr("action", "/Story/DeleteStory");
+                                    return confirm("你正要刪除這篇故事！\n\n請確定你是否真的要刪除它？");
+                                });
+                            </script>
+                        </div>
+                    }
+                    <br />
+                    <div class="row">
+                        <div class="col col-sm-3">
+                            <Lable class="control-label">章節</Lable><span style="color:red">(必填)</span><br />
+                            <span style="color:grey">不含空格的英數字串</span>
+                            @*<input asp-for="chapter" class="form-control" />*@
+                            @Html.TextBoxFor(m => m.chapter, ViewData["EditMode"].ToString() == "insert" ?
+                                (object)new { @class = "form-control", } : new { @class = "form-control", @readonly = "readonly" })
+                            <span asp-validation-for="chapter" class="text-danger"></span>
+                        </div>
+                        <div class="col col-sm-3">
+                            <Lable class="control-label">段落</Lable><span style="color:red">(必填)</span><br />
+                            <span style="color:grey">請輸入正整數</span>
+                            @*<input asp-for="section" class="form-control" />*@
+                            @Html.TextBoxFor(m => m.section, ViewData["EditMode"].ToString() == "insert" ?
+                                (object)new { @class = "form-control", @type = "number" } : new { @class = "form-control", @type = "number", @readonly = "readonly" })
+                            <span asp-validation-for="section" class="text-danger"></span>
+                        </div>
+                        <div class="col col-sm-3">
+                            <Lable class="control-label">序號</Lable><br />
+                            <span style="color:grey">故事排序用，格式XX_XX</span>
+                            <input asp-for="seq" class="form-control" placeholder="例：01_02，表示第01章第02段" />
+                            <span asp-validation-for="seq" class="text-danger"></span>
+                        </div>
+                        <div class="col col-sm-3">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <Lable class="control-label">目錄標題</Lable>
+                            <input asp-for="title" class="form-control" />
+                            <span asp-validation-for="title" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <Lable class="control-label">內文(中文)</Lable>
+                            <textarea name="storyContent_ch" asp-for="storyContent_ch"></textarea>
+                            <span asp-validation-for="storyContent_ch" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <Lable class="control-label">內文(韓文)</Lable>
+                            <textarea name="storyContent_kr" asp-for="storyContent_kr"></textarea>
+                            <span asp-validation-for="storyContent_kr" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </form>
+        </div>
+        <br />
+    </div>
+</div>
+<script type="text/javascript">
+    var isChange = false;
+    $(document).ready(function () {
+        $('#listTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "language": {
+                "zeroRecords": "查無資料",
+                "info": "第 _PAGE_ 頁/共 _PAGES_ 頁",
+                "paginate": {
+                    "previous": "上一頁",
+                    "next": "下一頁"
+                }
+            }
+        });
+
+        //設定編輯後離開畫面會詢問
+        $("input,textarea,select").change(function () {
+            isChange = true;
+        });
+        $("#BtnSave").click(function () {
+            isChange = false;
+        });
+        $(window).bind('beforeunload', function (e) {
+            if (isChange) {
+                return "資料尚未存檔，確定要離開？";
+            }
+        })
+    });
+
+    //載入CKEDITOR
+    var editor_ch = CKEDITOR.replace('storyContent_ch', { customConfig: '/js/ckeditorConfig.js' });
+    var editor_kr = CKEDITOR.replace('storyContent_kr', { customConfig: '/js/ckeditorConfig.js' });
+    //設定編輯區背景顏色與字色
+    editor_ch.on('instanceReady', function (evt) {
+        editor_ch.document.getBody().setStyle('color', '#FFFFFF');
+        editor_ch.document.getBody().setStyle('background-color', '#203040');
+    });
+    editor_kr.on('instanceReady', function (evt) {
+        editor_kr.document.getBody().setStyle('color', '#FFFFFF');
+        editor_kr.document.getBody().setStyle('background-color', '#203040');
+    });
+    //設定編輯區onChange()方法
+    editor_ch.on('mode', function () {
+        var editable = editor_ch.editable();
+        editable.attachListener(editable, 'input', function () {
+            isChange = true;
+            $(this).addClass("editing");
+        });
+    });
+    editor_kr.on('mode', function () {
+        var editable = editor_kr.editable();
+        editable.attachListener(editable, 'input', function () {
+            isChange = true;
+            $(this).addClass("editing");
+        });
+    });
+</script>

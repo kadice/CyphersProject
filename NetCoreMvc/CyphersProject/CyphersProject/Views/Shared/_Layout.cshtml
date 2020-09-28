@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CyphersProject</title>
+
+    <!--Stylesheets-->
+    <link rel="stylesheet" href="~/lib/bootstrap-4.5.2-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/lib/ckeditor/styles.js" />
+    <link rel="stylesheet" href="~/lib/fontawesome-free-5.14.0-web/css/all.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+
+</head>
+<body>
+    <!--JavaScripts-->
+    <script src="~/js/jquery-3.5.1.min.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/bootstrap-4.5.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+
+    <div class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <div class="container">
+            <!--標題-->
+            <a class="navbar-brand" href="/" style="margin: 0px 1rem;">CyphersProject</a>
+
+            <!--選單-->
+            <div class="collapse navbar-collapse">
+                <!--ml-auto=左側留白-->
+                <ul class="nav navbar-nav ml-auto" data-hover="tab">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle">市立圖書館</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Story" asp-action="Index">背景故事</a></li>
+                            <li><a class="dropdown-item" asp-controller="Chronology" asp-action="">事件年表</a></li>
+                            <li><a class="dropdown-item" asp-controller="Dictionary" asp-action="">名詞辭典</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle">作戰總部</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Index" asp-action="">官網系統</a></li>
+                            <li><a class="dropdown-item" asp-controller="Index" asp-action="">遊戲系統</a></li>
+                            <li><a class="dropdown-item" asp-controller="Index" asp-action="">對戰地圖</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle">廣場上的人們</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Character" asp-action="">能力者檔案</a></li>
+                            <li><a class="dropdown-item" asp-controller="Skill" asp-action="">技能情報</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle">船務卸貨區</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Equip" asp-action="">裝備道具</a></li>
+                            <li><a class="dropdown-item" asp-controller="Index" asp-action="">時裝櫥窗</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">工程部</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">登入</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <div class="footer">
+        <div id="footerContent" class="container">
+            &copy; 2020 CYPHERSPROJECT MAKE BY KADICE.<br>
+            This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+        </div>
+    </div>
+</body>
+</html>

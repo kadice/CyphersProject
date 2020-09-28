@@ -1,0 +1,52 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "背景故事";
+}
+<style type="text/css">
+    body {
+        background-image: url('/image/bg_story.jpg');
+        background-attachment: fixed; /*固定背景*/
+        background-size: cover;
+    }
+
+    .content {
+        background-color: rgba(1, 1, 1, 0.5);
+        padding: 0px 10px 20px 10px;
+        color: white;
+    }
+
+    div.imgContainer {
+        width: 80%;
+        padding: 40px;
+    }
+
+    img {
+        border: black 5px solid;
+        width: 100%;
+    }
+</style>
+<div class="content" style="text-align: center;">
+        <div class="imgContainer mx-auto">
+            <a href="/Story/s/eclipse">
+                <img alt="ECLIPSE" src="~/image/story_s1.jpg" />
+            </a>
+        </div>
+        <div class="imgContainer mx-auto">
+            <a href="/Story/s/supermoon">
+                <img alt="SUPER MOON" src="~/image/story_s2.jpg" />
+            </a>
+        </div>
+        <div class="imgContainer mx-auto">
+            <a href="/Story/s/bluemoon">
+                <img alt="BLUE MOON" src="~/image/story_s3.jpg" />
+            </a>
+        </div>
+        <hr style="border-top: 1px solid white;">
+        <div class="imgContainer mx-auto">
+            <a href="/Story/s/episode">
+                <img alt="EPISODE" src="~/image/story_ep.jpg" />
+            </a>
+        </div>
+    </div>

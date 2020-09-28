@@ -1,0 +1,6 @@
+runtime: aspnetcore
+env: flex
+service: test
+
+beta_settings:
+    cloud_sql_instances: "<instance_path>=tcp:3306"
